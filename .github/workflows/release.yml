@@ -1,0 +1,173 @@
+name: Desktop release and Wasm Pages
+
+on:
+  push:
+    tags: ['v*']
+
+# Finish publication before another release can update Latest or Pages.
+concurrency:
+  group: wsmarsroversim-release
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-24.04
+    outputs:
+      version: ${{ steps.version.outputs.version }}
+      commit: ${{ steps.version.outputs.commit }}
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Check publication safeguards (offline)
+        run: python3 -B -m unittest discover -s .github/scripts -p 'test_*.py'
+
+      - name: Verify a stable version tag on main
+        id: version
+        env:
+          RELEASE_TAG: ${{ github.ref_name }}
+        run: |
+          git show-ref --verify refs/remotes/origin/main
+          python3 .github/scripts/validate_release.py
+
+  wasm:
+    needs: validate
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    outputs:
+      pages-artifact: ${{ steps.pages-name.outputs.name }}
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: ${{ needs.validate.outputs.commit }}
+          persist-credentials: false
+      - uses: actions/setup-java@v6
+        with:
+          distribution: corretto
+          java-version: '21'
+          cache: gradle
+      - name: Build optimized Wasm and archive
+        env:
+          PUBLISHING_REPOSITORY: ${{ github.repository }}
+        run: bash gradlew :webApp:wasmReleaseZip -PpublishingRepository="$PUBLISHING_REPOSITORY" --no-daemon
+      - uses: actions/upload-artifact@v7
+        with:
+          name: release-wasm
+          path: webApp/build/distributions/web-wasm-WSMarsRoverSim.zip
+          if-no-files-found: error
+          compression-level: 0
+          overwrite: true
+      - id: pages-name
+        run: echo "name=github-pages-$GITHUB_RUN_ATTEMPT" >> "$GITHUB_OUTPUT"
+      - uses: actions/upload-pages-artifact@v4
+        with:
+          name: ${{ steps.pages-name.outputs.name }}
+          path: webApp/build/distributions/wasm
+          retention-days: 7
+
+  desktop:
+    needs: validate
+    name: Desktop · ${{ matrix.target }}
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: windows-2022
+            target: windows-x64
+            architecture: x64
+            extension: msi
+          - os: macos-15
+            target: macos-arm64
+            architecture: aarch64
+            extension: dmg
+          - os: macos-15-intel
+            target: macos-x64
+            architecture: x64
+            extension: dmg
+          - os: ubuntu-24.04
+            target: linux-x64
+            architecture: x64
+            extension: deb
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: ${{ needs.validate.outputs.commit }}
+          persist-credentials: false
+      - uses: actions/setup-java@v6
+        with:
+          distribution: corretto
+          java-version: '21'
+          architecture: ${{ matrix.architecture }}
+          cache: gradle
+      - name: Install Linux packaging tools
+        if: runner.os == 'Linux'
+        run: sudo apt-get update && sudo apt-get install -y fakeroot
+      - name: Build portable app image and installer with bundled runtime
+        shell: bash
+        env:
+          APP_VERSION: ${{ needs.validate.outputs.version }}
+        run: bash gradlew :desktopApp:createDistributable :desktopApp:packageDistributionForCurrentOS -PappVersion="$APP_VERSION" --no-daemon
+      - name: Archive portable app and name both downloads by platform
+        shell: bash
+        env:
+          DESKTOP_TARGET: ${{ matrix.target }}
+          PACKAGE_EXTENSION: ${{ matrix.extension }}
+        run: python .github/scripts/stage_desktop.py
+      - uses: actions/upload-artifact@v7
+        with:
+          name: release-${{ matrix.target }}
+          path: release-assets/*
+          if-no-files-found: error
+          compression-level: 0
+          overwrite: true
+
+  release:
+    needs: [validate, wasm, desktop]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    permissions:
+      contents: write
+    outputs:
+      deploy-pages: ${{ steps.publish.outputs.deploy_pages }}
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: ${{ needs.validate.outputs.commit }}
+          persist-credentials: false
+      - uses: actions/download-artifact@v8
+        with:
+          pattern: release-*
+          path: release-assets
+          merge-multiple: true
+      - name: Upload every asset to a draft, then publish
+        id: publish
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_TAG: ${{ github.ref_name }}
+          RELEASE_COMMIT: ${{ needs.validate.outputs.commit }}
+        run: python3 .github/scripts/publish_release.py
+
+  pages:
+    needs: [release, wasm]
+    if: needs.release.outputs.deploy-pages == 'true'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/configure-pages@v5
+      - uses: actions/deploy-pages@v4
+        id: deployment
+        with:
+          artifact_name: ${{ needs.wasm.outputs.pages-artifact }}

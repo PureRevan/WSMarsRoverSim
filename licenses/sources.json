@@ -1,0 +1,113 @@
+[
+  {
+    "file": "Apache-2.0.txt",
+    "source": "https://raw.githubusercontent.com/JetBrains/kotlin/v2.3.21/license/LICENSE.txt",
+    "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+  },
+  {
+    "file": "Kotlin-NOTICE.txt",
+    "source": "https://raw.githubusercontent.com/JetBrains/kotlin/v2.3.21/license/NOTICE.txt",
+    "sha256": "0b09a83d3ef7795c7dec65e815866597c066c53898f2852a76599b8f5552941a"
+  },
+  {
+    "file": "Kotlin-COPYRIGHT.txt",
+    "source": "https://raw.githubusercontent.com/JetBrains/kotlin/v2.3.21/license/COPYRIGHT.txt",
+    "sha256": "8f1a1700adb5490604c6094fb137bf73f6c28d3ee554b58f3ff8ef975a79672d"
+  },
+  {
+    "file": "QRose-MIT.txt",
+    "source": "https://raw.githubusercontent.com/alexzhirkevich/qrose/1.1.2/LICENSE",
+    "sha256": "f8bf05bea207606de0536fadf948894e84b0eb42d44f013124b13f227a6c39f8"
+  },
+  {
+    "file": "Skiko-NOTICE.txt",
+    "source": "https://raw.githubusercontent.com/JetBrains/skiko/v0.144.6/NOTICE",
+    "sha256": "35dd077c24768b53625101cfcc0ad853ae7e2abc08bd2a111a0267760d1406d8"
+  },
+  {
+    "file": "Skia-BSD.txt",
+    "source": "https://raw.githubusercontent.com/JetBrains/skia/m144-22f58c9fd4/LICENSE",
+    "sha256": "5f787c1dee3c56547f09ccc2906ab5f5293c4d8dd6c8654e573216c38e908dbd"
+  },
+  {
+    "file": "Emscripten-LICENSE.txt",
+    "source": "https://raw.githubusercontent.com/emscripten-core/emscripten/main/LICENSE",
+    "sha256": "620a78084fc7ca97c0b5dea9abf891f3ffcadfdbf305276f099c9c4e12fc1d86"
+  },
+  {
+    "file": "brotli-LICENSE.txt",
+    "source": "https://skia.googlesource.com/external/github.com/google/brotli.git/+/6d03dfbedda1615c4cba1211f8d81735575209c8/LICENSE?format=TEXT",
+    "sha256": "3d180008e36922a4e8daec11c34c7af264fed5962d07924aea928c38e8663c94"
+  },
+  {
+    "file": "expat-expat-COPYING.txt",
+    "source": "https://chromium.googlesource.com/external/github.com/libexpat/libexpat.git/+/8e49998f003d693213b538ef765814c7d21abada/expat/COPYING?format=TEXT",
+    "sha256": "31b15de82aa19a845156169a17a5488bf597e561b2c318d159ed583139b25e87"
+  },
+  {
+    "file": "freetype-docs-FTL.TXT.txt",
+    "source": "https://chromium.googlesource.com/chromium/src/third_party/freetype2.git/+/1518bc83d26b434031bd12c706ac3c7dab3902fd/docs/FTL.TXT?format=TEXT",
+    "sha256": "5a5ee54c5001bbad1cdc1a57cc3dd4c42199b2da09d39c7ee41fab002d02967f"
+  },
+  {
+    "file": "harfbuzz-COPYING.txt",
+    "source": "https://chromium.googlesource.com/external/github.com/harfbuzz/harfbuzz.git/+/08b52ae2e44931eef163dbad71697f911fadc323/COPYING?format=TEXT",
+    "sha256": "ba8f810f2455c2f08e2d56bb49b72f37fcf68f1f4fade38977cfd7372050ad64"
+  },
+  {
+    "file": "icu-LICENSE.txt",
+    "source": "https://chromium.googlesource.com/chromium/deps/icu.git/+/364118a1d9da24bb5b770ac3d762ac144d6da5a4/LICENSE?format=TEXT",
+    "sha256": "17510cf7a58b4879b887ec05a45d72cf1b73544dd9ec7e72f20110ed104229ee"
+  },
+  {
+    "file": "libjpeg-turbo-LICENSE.md.txt",
+    "source": "https://chromium.googlesource.com/chromium/deps/libjpeg_turbo.git/+/e14cbfaa85529d47f9f55b0f104a579c1061f9ad/LICENSE.md?format=TEXT",
+    "sha256": "96f5b328adbb78eeaaec6980d73fd558cb1e4d62560ed615646bc3cf5e532430"
+  },
+  {
+    "file": "libjpeg-turbo-README.ijg.txt",
+    "source": "https://chromium.googlesource.com/chromium/deps/libjpeg_turbo.git/+/e14cbfaa85529d47f9f55b0f104a579c1061f9ad/README.ijg?format=TEXT",
+    "sha256": "75815e3bf6484201a3c3d17a1bbf10f2e8e3237f84df10a2357ea896db2a81d6"
+  },
+  {
+    "file": "libpng-LICENSE.txt",
+    "source": "https://skia.googlesource.com/third_party/libpng.git/+/49363adcfaf098748d7a4c8c624ad8c45a8c3a86/LICENSE?format=TEXT",
+    "sha256": "16d9daaafbf63a31a5bdc91d4600972548fef5aaa1244202393288dbd079c49a"
+  },
+  {
+    "file": "libwebp-COPYING.txt",
+    "source": "https://chromium.googlesource.com/webm/libwebp.git/+/845d5476a866141ba35ac133f856fa62f0b7445f/COPYING?format=TEXT",
+    "sha256": "5aec868f669e384a22372a4e8a1a6cd7d44c64cd451f960ca69cc170d1e13acf"
+  },
+  {
+    "file": "libwebp-PATENTS.txt",
+    "source": "https://chromium.googlesource.com/webm/libwebp.git/+/845d5476a866141ba35ac133f856fa62f0b7445f/PATENTS?format=TEXT",
+    "sha256": "cc3273e0694ea5896145e0677699b53471b03ea43021ddc50e7923fbb9f5023c"
+  },
+  {
+    "file": "zlib-LICENSE.txt",
+    "source": "https://chromium.googlesource.com/chromium/src/third_party/zlib/+/646b7f569718921d7d4b5b8e22572ff6c76f2596/LICENSE?format=TEXT",
+    "sha256": "e1cfcc55c325b3f78cf55df9664abaa066e2271dffe8213347d9fccdfbac8f2c"
+  },
+  {
+    "file": "wuffs-LICENSE.txt",
+    "source": "https://skia.googlesource.com/external/github.com/google/wuffs-mirror-release-c.git/+/e3f919ccfe3ef542cfc983a82146070258fb57f8/LICENSE?format=TEXT",
+    "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+  },
+  {
+    "file": "NotoSans-OFL.txt",
+    "source": "https://raw.githubusercontent.com/JetBrains/compose-multiplatform/v1.11.0/license/third_party/notosans_OFL.txt",
+    "sha256": "857c9cfe99da9b1cb313234885d0909f4d36545410bb6e6d6b944340d1331d91"
+  },
+  {
+    "file": "ANGLE-LICENSE.txt",
+    "source": "https://chromium.googlesource.com/angle/angle/+/ec4d8f8e4d/LICENSE?format=TEXT",
+    "sha256": "bf4da21bd20bcfb5b60b7ecc67fa864a79be049e21d6178076887f178dd6c71a"
+  },
+  {
+    "file": "js-joda-BSD.txt",
+    "source": "https://registry.npmjs.org/@js-joda/core/-/core-3.2.0.tgz",
+    "archivePath": "package/LICENSE",
+    "sha256": "3475a7cd7ad52f4b3b9fd63633273f8032070a70b94ec46fd4b96497baae1a4e"
+  }
+]

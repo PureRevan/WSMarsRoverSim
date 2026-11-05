@@ -1,0 +1,14 @@
+html, body {
+    width: 100%;
+    height: 100%;
+    height: 100dvh;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    overscroll-behavior: none;
+}
+
+/* Compose handles canvas dragging, pinch zoom and scrolling of its own panels. */
+canvas {
+    touch-action: none;
+}
